@@ -1,0 +1,26 @@
+{
+  "name": "logdash",
+  "version": "1.0.0",
+  "description": "Simple log utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --watch ./src/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surajs02/logdash.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/surajs02/logdash/issues"
+  },
+  "homepage": "https://github.com/surajs02/logdash#readme",
+  "devDependencies": {
+    "mocha": "^7.1.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}
