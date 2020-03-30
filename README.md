@@ -1,0 +1,2 @@
+# logdash
+Simple log utils
