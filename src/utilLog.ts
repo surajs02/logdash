@@ -43,24 +43,22 @@ const LOG_TYPES = _.reduce({
         color: chalk.red,
         consoleType: console.error,
     },
-}, (a: any, v: any, k: string) => {
+}, (a: any, v: LogType, k: string) => {
     const {
         consoleType = console.log,
         tag = k.toUpperCase(),
         color = _.identity,
     }: LogType = v;
-
     return {
         ...a,
         [k]: {
             ...v,
             func: {
                 name: 'log' + k[0],
-                op: (msg?: any, ...args: any[]) => (
+                op: (...args: any[]) => (
                     consoleType(
-                        color(
-                            `[${tag}] ${msg}` // First arg is message.
-                        ), ...args
+                        color(`[${tag}]`),
+                        ...args
                     ), 
                     args
                 ),
@@ -75,5 +73,7 @@ module.exports = {
     // Unpack log functions, which have 
     // shape: log<initial> => (...args) => console.log(<tag>: args[0], ...args.slice(1)).
     // E.g.: LOG_TYPES.info used as `logi('hello', 123)` to give `INFO: hello 123` where 123 is var.
-    logFuncs: _.reduce(LOG_TYPES, (a: any, { func }: { func: LogFunction }) => ({ ...a, [func.name]: func.op }), {}),
+    logFuncs: _.reduce(LOG_TYPES, (a: any, { func }: { func: LogFunction }) => (
+        { ...a, [func.name]: func.op }
+    ), {}),
 };
