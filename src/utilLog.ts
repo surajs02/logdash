@@ -1,17 +1,5 @@
 const chalk = require('chalk');
 
-// For reference purposes: Old version of log coloring.
-// const LOG_COLORER = {
-//     non: _.identity,
-//     success: chalk.green,
-//     warn: chalk.keyword('orange'),
-//     danger: chalk.red,
-//     info: chalk.grey,
-// };
-// const logWithColor = (logColorer, ...args) => console.log(logColorer(args[0]), ...args.slice(1));
-// const logi = (...args) => logWithColor(LOG_COLORER.info, ...args);
-// const logs = (...args) => logWithColor(LOG_COLORER.success, ...args);
-
 interface LogFunction {
     name: string;
     op: Function;
