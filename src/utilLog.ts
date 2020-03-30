@@ -27,7 +27,6 @@ interface LogType {
 const LOG_TYPES = _.reduce({
     none: {
         color: _.identity,
-        tag: '',
     },
     info: {
         color: chalk.blue,
@@ -50,16 +49,20 @@ const LOG_TYPES = _.reduce({
         tag = k.toUpperCase(),
         color = _.identity,
     }: LogType = v;
+
     return {
         ...a,
         [k]: {
             ...v,
             func: {
                 name: 'log' + k[0],
-                op: (...args: any[]) => consoleType(
-                    color(
-                        `${tag}: ${args[0]}` // First arg is message.
-                    ), ...args.slice(1) // Remaining args.
+                op: (msg?: any, ...args: any[]) => (
+                    consoleType(
+                        color(
+                            `[${tag}] ${msg}` // First arg is message.
+                        ), ...args
+                    ), 
+                    args
                 ),
             }
         },
