@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc -w",
-    "test": "mocha --require ts-node/register --extensions ts,tsx --watch './src/test/*.{ts,tsx}'"
+    "test": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src './**/test*.{ts,tsx}'"
   },
   "repository": {
     "type": "git",
