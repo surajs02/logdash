@@ -59,8 +59,8 @@ module.exports = {
     getErrorLine: (e: Error) => e.stack?.split('\n')[1],
 
     // Unpack log functions, which have 
-    // shape: log<initial> => (...args) => console.log(<tag>: args[0], ...args.slice(1)).
-    // E.g.: LOG_TYPES.info used as `logi('hello', 123)` to give `INFO: hello 123` where 123 is var.
+    // shape: log<initial-letter> => (...args) => console.log([tag], ...args).
+    // E.g.: LOG_TYPES.info via `logi('hello', 123)` outputs '[INFO] hello 123' where 123 is var.
     logFuncs: _.reduce(LOG_TYPES, (a: any, { func }: { func: LogFunction }) => (
         { ...a, [func.name]: func.op }
     ), {}),
