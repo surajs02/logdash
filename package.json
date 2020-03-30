@@ -4,7 +4,9 @@
   "description": "Simple log utils",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --watch ./src/test.js"
+    "compile": "tsc -w",
+    "test": "mocha --watch ./dist/test.js",
+    "dev": "concurrently \"npm run compile\" \"npm run test\""
   },
   "repository": {
     "type": "git",
@@ -18,9 +20,13 @@
   },
   "homepage": "https://github.com/surajs02/logdash#readme",
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "mocha": "^7.1.1"
   },
   "dependencies": {
-    "lodash": "^4.17.15"
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.9.5",
+    "lodash": "^4.17.15",
+    "tslint-config-airbnb": "^5.11.2"
   }
 }

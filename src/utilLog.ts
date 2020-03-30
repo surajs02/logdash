@@ -12,6 +12,18 @@ const chalk = require('chalk');
 // const logi = (...args) => logWithColor(LOG_COLORER.info, ...args);
 // const logs = (...args) => logWithColor(LOG_COLORER.success, ...args);
 
+interface LogFunction {
+    name: string;
+    op: Function;
+}
+
+interface LogType {
+    consoleType: Function;
+    tag: String;
+    color: Function;
+    func: LogFunction,
+};
+
 const LOG_TYPES = _.reduce({
     none: {
         color: _.identity,
@@ -32,19 +44,19 @@ const LOG_TYPES = _.reduce({
         color: chalk.red,
         consoleType: console.error,
     },
-}, (a, v, k) => {
+}, (a: any, v: any, k: string) => {
     const {
         consoleType = console.log,
         tag = k.toUpperCase(),
         color = _.identity,
-    } = v;
+    }: LogType = v;
     return {
         ...a,
         [k]: {
             ...v,
             func: {
                 name: 'log' + k[0],
-                op: (...args) => consoleType(
+                op: (...args: any[]) => consoleType(
                     color(
                         `${tag}: ${args[0]}` // First arg is message.
                     ), ...args.slice(1) // Remaining args.
@@ -55,10 +67,10 @@ const LOG_TYPES = _.reduce({
 }, {});
 
 module.exports = {
-    getErrorLine: e => e.stack.split('\n')[1],
+    getErrorLine: (e: Error) => e.stack?.split('\n')[1],
 
     // Unpack log functions, which have 
     // shape: log<initial> => (...args) => console.log(<tag>: args[0], ...args.slice(1)).
     // E.g.: LOG_TYPES.info used as `logi('hello', 123)` to give `INFO: hello 123` where 123 is var.
-    logFuncs: _.reduce(LOG_TYPES, (a, { func }, k) => ({ ...a, [func.name]: func.op }), {}),
+    logFuncs: _.reduce(LOG_TYPES, (a: any, { func }: { func: LogFunction }) => ({ ...a, [func.name]: func.op }), {}),
 };
