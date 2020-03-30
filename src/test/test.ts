@@ -1,8 +1,8 @@
 const assert = require('assert');
-const _ = require('lodash')
-global._ = _;
+const _ = require('lodash');
+(global as any)._ = _;
 
-const { logFuncs } = require('./utilLog');
+const { logFuncs } = require('../utilLog');
 
 describe('non-chain logs', () => {
     const testText = 'testText';
