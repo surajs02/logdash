@@ -1,7 +1,7 @@
 const _ = require('lodash');
 import './util/utilLodashMixins';
 
-import { logFuncs, ILogFunc } from './utilLog';
+import { logFuncs } from './util/utilLog';
 
 export interface ILogdashOptions {
     lodashForMixin?: typeof _;

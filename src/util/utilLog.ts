@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 export interface ILogFunc {
     name: string;
