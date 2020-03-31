@@ -1,17 +1,21 @@
 const _ = require('lodash');
 const chalk = require('chalk');
 
-interface LogFunction {
+export interface ILogFunc {
     name: string;
     op: Function;
 }
 
-interface LogType {
+export interface ILogType {
     consoleType: Function;
     tag: String;
     color: Function;
-    func: LogFunction,
+    func: ILogFunc,
 };
+
+interface ILogFuncMap {
+    [key: string]: ILogFunc;
+}
 
 const LOG_TYPES = _.reduce({
     none: {
@@ -32,12 +36,12 @@ const LOG_TYPES = _.reduce({
         color: chalk.red,
         consoleType: console.error,
     },
-}, (a: any, v: LogType, k: string) => {
+}, (a: any, v: ILogType, k: string) => {
     const {
         consoleType = console.log,
         tag = k.toUpperCase(),
         color = _.identity,
-    }: LogType = v;
+    }: ILogType = v;
     return {
         ...a,
         [k]: {
@@ -56,15 +60,11 @@ const LOG_TYPES = _.reduce({
     }
 }, {});
 
-module.exports = {
-    getErrorLine: (e: Error) => e.stack?.split('\n')[1],
+export const getErrorLine = (e: Error) => e.stack?.split('\n')[1] || 'unknown';
 
-    // Unpack log functions, which have 
-    // shape: log<initial-letter> => (...args) => console.log([tag], ...args).
-    // E.g.: LOG_TYPES.info via `logi('hello', 123)` outputs '[INFO] hello 123' where 123 is var.
-    logFuncs: _.reduce(LOG_TYPES, (a: any, { func }: { func: LogFunction }) => (
-        { ...a, [func.name]: func.op }
-    ), {}),
-};
-
-export {  }
+// Unpack log functions, which have 
+// shape: log<initial-letter> => (...args) => console.log([tag], ...args).
+// E.g.: LOG_TYPES.info via `logi('hello', 123)` outputs '[INFO] hello 123' where 123 is var.
+export const logFuncs: ILogFuncMap = _.reduce(LOG_TYPES, 
+    (a: any, { func }: { func: ILogFunc }) => ({ ...a, [func.name]: func.op }), {}
+);

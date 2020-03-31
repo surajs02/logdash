@@ -23,4 +23,4 @@ describe('logs with only args', () => {
 });
 
 
-export { } // Make this file a ts module to keep its scope private.
+export {} // Make this file a ts module to keep its scope private.

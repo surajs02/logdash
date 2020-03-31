@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/surajs02/logdash#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.149",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.8",
     "lodash": "^4.17.15",
