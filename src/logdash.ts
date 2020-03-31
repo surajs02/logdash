@@ -21,3 +21,5 @@ module.exports = (options: ILogdashOptions) => {
 // - turn on/off all logs
 // - switch between info/debug based on node/client?
 // - allow customising logs? post-export callback?
+
+export { }

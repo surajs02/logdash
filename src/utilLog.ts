@@ -66,3 +66,5 @@ module.exports = {
         { ...a, [func.name]: func.op }
     ), {}),
 };
+
+export {  }

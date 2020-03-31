@@ -8,14 +8,18 @@ const args = ['string1', 1, true, [1, 2], { a: 1, b: 2, }, null, undefined, 'str
 
 describe('logs with message and args', () => {
     _.each(logFuncs, (f: Function, n: string) => {
-        it(`should log via [${n}] message and args`, () => f(msg, ...args));
-    });
+        it(`should log via [${n}] message and args`, () => assert(
+            f(msg, ...args).length, args.length + 1
+        ));
+    })    
 });
 
 describe('logs with only args', () => {
     _.each(logFuncs, (f: Function, n: string) => {
-        it(`should log via [${n}] args`, () => f(...args));
-    });
+        it(`should log via [${n}] args`, () => assert(
+            f(...args).length, args.length
+        ));
+    })
 });
 
 
