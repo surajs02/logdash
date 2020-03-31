@@ -1,6 +1,5 @@
 const assert = require('assert');
-const _ = require('lodash'); // Avoid 'find name errors'.
-(global as any)._ = _;
+const _ = require('lodash'); // TODO: Fix global lodash?
 
 const { logFuncs } = require('../utilLog');
 
@@ -9,14 +8,15 @@ const args = ['string1', 1, true, [1, 2], { a: 1, b: 2, }, null, undefined, 'str
 
 describe('logs with message and args', () => {
     _.each(logFuncs, (f: Function, n: string) => {
-        it(`should log ${n} message and args`, () => f(msg, ...args));
+        it(`should log via [${n}] message and args`, () => f(msg, ...args));
     });
 });
 
 describe('logs with only args', () => {
     _.each(logFuncs, (f: Function, n: string) => {
-        it(`should log ${n} args`, () => f(...args));
+        it(`should log via [${n}] args`, () => f(...args));
     });
 });
 
-// TODO: Test with lodash.
+
+export { } // Make this file a ts module to keep its scope private.
