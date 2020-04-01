@@ -9,3 +9,10 @@ export const mapObj = (obj: any, mapFunc: Function) => _.reduce(obj, (a: any, v:
 export const mapObjValues = (obj: any, mapFunc: Function) => _.reduce(obj, (a: any, v: any, k: any) => (
     { ...a, [k]: mapFunc(v) }
 ), {});
+
+// Same as _.identity but also handles multiple args: 
+// - identityArgs([1, 2]) => [1, 2]
+// - identityArgs(1, 2) => [1, 2]
+export const identityArgs = (...args: any[]) => args.length === 1 
+    ? args[0] // Avoids returning first arg in obsolete array.
+    : args;

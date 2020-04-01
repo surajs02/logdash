@@ -9,7 +9,7 @@ const args = ['string1', 1, true, [1, 2], { a: 1, b: 2, }, null, undefined, 'str
 describe('logs with message and args', () => {
     _.each(logFuncs, (f: Function, n: string) => {
         it(`should log via [${n}] message and args`, () => assert(
-            f(msg, ...args).length, args.length + 1
+            f(msg, ...args).length, [msg, args].length
         ));
     })    
 });

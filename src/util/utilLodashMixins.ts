@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-import { mapObjValues } from './utilLoop';
+import * as utilLoop from './utilLoop';
 
 // Lodash mixins local to this project.
 _.mixin({
-    mapObjValues,
+    ...utilLoop,
 })
 
 export {}

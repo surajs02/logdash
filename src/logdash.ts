@@ -9,10 +9,12 @@ export interface ILogdashOptions {
 }
 
 export default (options: ILogdashOptions) => {
-    const { lodashForMixin, disableAllLogs } = options;
+    const { lodashForMixin, disableAllLogs = false } = options;
     
+
+
     const logFuncsBuffer = disableAllLogs
-        ? _.mapObjValues(logFuncs, () => _.identity)
+        ? _.mapObjValues(logFuncs, () => _.identityArgs)
         : logFuncs;
 
     if (lodashForMixin != null && lodashForMixin.hasOwnProperty('mixin')) {

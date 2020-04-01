@@ -7,19 +7,23 @@ export interface ILogFunc {
 }
 
 export interface ILogType {
-    consoleType: Function;
-    tag: String;
     color: Function;
-    func: ILogFunc,
+    consoleType?: Function;
+    tag?: String;
+    func?: ILogFunc,
 };
 
+interface ILogTypeMap {
+    [key: string]: ILogType;
+}
+
 interface ILogFuncMap {
-    [key: string]: ILogFunc;
+    [key: string]: Function;
 }
 
 const LOG_TYPES = _.reduce({
     none: {
-        color: _.identity,
+        color: _.noop,
     },
     info: {
         color: chalk.blue,
@@ -36,11 +40,11 @@ const LOG_TYPES = _.reduce({
         color: chalk.red,
         consoleType: console.error,
     },
-}, (a: any, v: ILogType, k: string) => {
+} as ILogTypeMap, (a: any, v: ILogType, k: string) => {
     const {
         consoleType = console.log,
         tag = k.toUpperCase(),
-        color = _.identity,
+        color = _.noop,
     }: ILogType = v;
     return {
         ...a,
@@ -48,13 +52,13 @@ const LOG_TYPES = _.reduce({
             ...v,
             func: {
                 name: 'log' + k[0],
-                op: (...args: any[]) => (
+                op: (...args: any[]): any[] => {
                     consoleType(
                         color(`[${tag}]`),
                         ...args
-                    ), 
-                    args
-                ),
+                    );
+                    return _.identityArgs(...args);
+                },
             }
         },
     }
