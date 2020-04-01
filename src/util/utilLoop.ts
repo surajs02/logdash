@@ -10,6 +10,11 @@ export const mapObjValues = (obj: any, mapFunc: Function) => _.reduce(obj, (a: a
     { ...a, [k]: mapFunc(v) }
 ), {});
 
+// `mapFunc` should return key, eg given (k) return k.
+export const mapObjKeys = (obj: any, mapFunc: Function) => _.reduce(obj, (a: any, v: any, k: any) => (
+    { ...a, [mapFunc(k)]: v }
+), {});
+
 // Same as _.identity but also handles multiple args: 
 // - identityArgs([1, 2]) => [1, 2]
 // - identityArgs(1, 2) => [1, 2]

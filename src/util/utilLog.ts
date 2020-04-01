@@ -13,15 +13,19 @@ export interface ILogType {
     func?: ILogFunc,
 };
 
-interface ILogTypeMap {
+export interface ILogTypeMap {
     [key: string]: ILogType;
 }
 
-interface ILogFuncMap {
+export interface ILogFuncMap {
     [key: string]: Function;
 }
 
-const LOG_TYPES = _.reduce({
+export interface IUtilLogOptions {
+    customizeLogTypes?: (logFuncs: ILogTypeMap) => ILogTypeMap;
+}
+
+const LOG_TYPES = {
     none: {
         color: _.noop,
     },
@@ -40,35 +44,53 @@ const LOG_TYPES = _.reduce({
         color: chalk.red,
         consoleType: console.error,
     },
-} as ILogTypeMap, (a: any, v: ILogType, k: string) => {
-    const {
-        consoleType = console.log,
-        tag = k.toUpperCase(),
-        color = _.noop,
-    }: ILogType = v;
-    return {
-        ...a,
-        [k]: {
-            ...v,
-            func: {
-                name: 'log' + k[0],
-                op: (...args: any[]): any[] => {
-                    consoleType(
-                        color(`[${tag}]`),
-                        ...args
-                    );
-                    return _.identityArgs(...args);
-                },
-            }
-        },
-    }
-}, {});
+};
 
-export const getErrorLine = (e: Error) => e.stack?.split('\n')[1] || 'unknown';
+const processLogTypes = (logTypes: ILogTypeMap) => _.reduce(
+    logTypes, (a: any, v: ILogType, k: string) => {
+        const {
+            consoleType = console.log,
+            tag = k.toUpperCase(),
+            color = _.noop,
+        }: ILogType = v;
+        return {
+            ...a,
+            [k]: {
+                ...v,
+                func: {
+                    name: 'log' + k[0],
+                    op: (...args: any[]): any[] => {
+                        consoleType(
+                            color(`[${tag}]`),
+                            ...args
+                        );
+                        return _.identityArgs(...args);
+                    },
+                }
+            },
+        }
+    }, {}
+);
+
+const getErrorLine = (e: Error) => e.stack?.split('\n')[1] || 'unknown';
 
 // Unpack log functions, which have 
 // shape: log<initial-letter> => (...args) => console.log([tag], ...args).
 // E.g.: LOG_TYPES.info via `logi('hello', 123)` outputs '[INFO] hello 123' where 123 is var.
-export const logFuncs: ILogFuncMap = _.reduce(LOG_TYPES, 
+const logTypesToFuncs = (logTypes: ILogTypeMap): ILogFuncMap => _.reduce(logTypes, 
     (a: any, { func }: { func: ILogFunc }) => ({ ...a, [func.name]: func.op }), {}
 );
+
+export default (options: IUtilLogOptions) => {
+    const { customizeLogTypes } = options;
+
+
+    const logTypesBuffer: ILogTypeMap = (customizeLogTypes != null)
+        ? customizeLogTypes(LOG_TYPES)
+        : LOG_TYPES;
+
+    return {
+        getErrorLine,
+        logFuncs: logTypesToFuncs(processLogTypes(logTypesBuffer)),
+    };
+}
