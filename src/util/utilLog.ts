@@ -81,8 +81,8 @@ const logTypesToFuncs = (logTypes: ILogTypeMap): ILogFuncMap => _.reduce(logType
     (a: any, { func }: { func: ILogFunc }) => ({ ...a, [func.name]: func.op }), {}
 );
 
-export default (options: IUtilLogOptions) => {
-    const { customizeLogTypes } = options;
+export default (options?: IUtilLogOptions) => {
+    const { customizeLogTypes = null } = options || {};
 
 
     const logTypesBuffer: ILogTypeMap = (customizeLogTypes != null)
