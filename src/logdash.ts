@@ -20,8 +20,8 @@ export const mapObjValues = _.mapObjValues;
 
 const reloadUtilLog = (options?: IUtilLogOptions) => utilLog({ ...options,  });
 
-export default (options: ILogdashOptions) => {
-    const { lodashForMixin, disableAllLogs = false, customizeLogTypes } = options;
+export default (options?: ILogdashOptions) => {
+    const { lodashForMixin, disableAllLogs = false, customizeLogTypes } = options || {};
 
     // TODO: Move this to customizeLogs() which calls reloadLogFuncs in utilLog.
     let logFuncs = reloadUtilLog({ customizeLogTypes }).logFuncs;
