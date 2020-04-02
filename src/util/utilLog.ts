@@ -1,5 +1,6 @@
 const _ = require('lodash');
 import chalk from 'chalk';
+import { identityArgs } from './utilLoop';
 
 export interface ILogFunc {
     name: string;
@@ -63,7 +64,7 @@ const processLogTypes = (logTypes: ILogTypeMap) => _.reduce(
                     name: 'log' + k[0],
                     op: (...args: any[]): any[] => {
                         if (enabled) consoleType(color(`[${tag}]`), ...args);
-                        return _.identityArgs(...args);
+                        return identityArgs(...args);
                     },
                 }
             },
