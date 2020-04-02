@@ -10,7 +10,8 @@ export interface ILogType {
     color: Function;
     consoleType?: Function;
     tag?: String;
-    func?: ILogFunc,
+    func?: ILogFunc;
+    enabled?: boolean; 
 };
 
 export interface ILogTypeMap {
@@ -52,6 +53,7 @@ const processLogTypes = (logTypes: ILogTypeMap) => _.reduce(
             consoleType = console.log,
             tag = k.toUpperCase(),
             color = _.noop,
+            enabled = true,
         }: ILogType = v;
         return {
             ...a,
@@ -60,10 +62,7 @@ const processLogTypes = (logTypes: ILogTypeMap) => _.reduce(
                 func: {
                     name: 'log' + k[0],
                     op: (...args: any[]): any[] => {
-                        consoleType(
-                            color(`[${tag}]`),
-                            ...args
-                        );
+                        if (enabled) consoleType(color(`[${tag}]`), ...args);
                         return _.identityArgs(...args);
                     },
                 }

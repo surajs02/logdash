@@ -15,34 +15,37 @@ export interface ILogdashOptions {
     customizeLogTypes?: (logTypes: ILogTypeMap) => ILogTypeMap;
 }
 
+export const mapObj = _.mapObj;
 export const mapObjKeys = _.mapObjKeys;
 export const mapObjValues = _.mapObjValues;
 
-const reloadUtilLog = (options?: IUtilLogOptions) => utilLog({ ...options,  });
+const reloadUtilLog = (options?: IUtilLogOptions) => utilLog({ ...options, });
 
 export default (options?: ILogdashOptions) => {
-    const { lodashForMixin, disableAllLogs = false, customizeLogTypes } = options || {};
+    let { lodashForMixin, disableAllLogs = false, customizeLogTypes } = options || {}; 
 
-    // TODO: Move this to customizeLogs() which calls reloadLogFuncs in utilLog.
-    let logFuncs = reloadUtilLog({ customizeLogTypes }).logFuncs;
-
-    const logFuncsBuffer = disableAllLogs
-        ? _.mapObjValues(logFuncs, () => _.identityArgs)
-        : logFuncs;
+    let logFuncs = reloadUtilLog({ 
+        customizeLogTypes: logTypes => mapObj(
+            customizeLogTypes == null ? logTypes : customizeLogTypes(logTypes), // By user.
+            (v: ILogType, k: string) => ({ // By logdash.
+                [k]: {
+                    ...v,
+                    enabled: !disableAllLogs,
+                }
+            }
+        )),
+    }).logFuncs;
 
     if (lodashForMixin != null && lodashForMixin.hasOwnProperty('mixin')) {
         lodashForMixin.mixin({
-            ...logFuncsBuffer,
+            ...logFuncs,
         });
     }
 
     return {
-        logFuncs: logFuncsBuffer,
+        logFuncs,
     };
 } ;
 
 // TODO:
-// - allow customising logs? post-export callback?
-// - regroup tests in options?
-// - move disable log into utilLog via customizeLogTypes
 // - switch between info/debug based on node/client?
