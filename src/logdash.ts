@@ -44,4 +44,5 @@ export default (options: ILogdashOptions) => {
 // TODO:
 // - allow customising logs? post-export callback?
 // - regroup tests in options?
+// - move disable log into utilLog via customizeLogTypes
 // - switch between info/debug based on node/client?
