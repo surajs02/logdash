@@ -28,7 +28,7 @@ export interface IUtilLogOptions {
 
 const LOG_TYPES = {
     none: {
-        color: _.noop,
+        color: _.identity,
     },
     info: {
         color: chalk.blue,
