@@ -8,7 +8,7 @@ export interface ILogFunc {
 }
 
 export interface ILogType {
-    color: Function;
+    color?: Function;
     consoleType?: Function;
     tag?: String;
     func?: ILogFunc;
@@ -27,10 +27,8 @@ export interface IUtilLogOptions {
     customizeLogTypes?: (logFuncs: ILogTypeMap) => ILogTypeMap;
 }
 
-const LOG_TYPES = {
-    none: {
-        color: _.identity,
-    },
+const LOG_TYPES: ILogTypeMap = {
+    none: {},
     info: {
         color: chalk.blue,
         consoleType: console.info,
@@ -53,7 +51,7 @@ const processLogTypes = (logTypes: ILogTypeMap) => _.reduce(
         const {
             consoleType = console.log,
             tag = k.toUpperCase(),
-            color = _.noop,
+            color = _.identity,
             enabled = true,
         }: ILogType = v;
         return {
