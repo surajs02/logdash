@@ -9,6 +9,21 @@ const args = ['string1', 1, true, [1, 2], { a: 1, b: 2, }, null, undefined, 'str
 
 const reloadLogdash = (options?: ILogdashOptions) => logdash({ lodashForMixin: _, ...options });
 
+_.each(
+    reloadLogdash({
+        customizeLogTypes: (logTypes: ILogTypeMap) => ({
+            l: { color: _.identity },
+            o: { color: chalk.blue },
+            g: { color: chalk.green },
+            d: { color: chalk.keyword('orange') },
+            a: { color: chalk.red },
+            s: { color: chalk.magenta },
+            h: { color: chalk.cyan },
+        })
+    }).logFuncs,
+    (f: Function) => f('').length
+);
+
 describe('test log options', () => {
 
     describe('test logs via lodash', () => {
@@ -72,6 +87,7 @@ describe('test log options', () => {
                 });
             });
     });
+    
 });
 
 export {} // Make this file a ts module to keep its scope private.
