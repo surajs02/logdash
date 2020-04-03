@@ -1,8 +1,9 @@
 {
   "name": "logdash",
+  "private": true,
   "version": "1.0.0",
-  "description": "Simple log utils",
-  "main": "index.js",
+  "description": "Simple and customizable log functions that can integrate with `lodash`.",
+  "main": "./dist/logdash.js",
   "scripts": {
     "build": "tsc",
     "test": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src './**/test*.{ts,tsx}'",
@@ -14,8 +15,8 @@
     "url": "git+https://github.com/surajs02/logdash.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Suraj Sharma",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/surajs02/logdash/issues"
   },
