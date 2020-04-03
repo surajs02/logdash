@@ -24,16 +24,17 @@ Simple and customizable log functions that can integrate with `lodash`.
 
 `npm`:
 ```bash
-npm install logdash
+npm install @surajs02/logdash
 ```
 
 ## Basic Usage
 
 All log functions can be used directly (i.e., without `lodash` integration)
 ```ts
-import logdash from 'logdash';
+import { loadLogdash } from '@surajs02/logdash'; // TypeScript
+// const { loadLogdash } = require('logdash'); // JavaScript.
 
-const { logn, logi, logs, logw, loge } = logdash().logFuncs;
+const { logn, logi, logs, logw, loge } = loadLogdash().logFuncs;
 
 logn('A standard log');
 logi('This might be useful');
@@ -56,9 +57,8 @@ logn('String1', 1, true, [1], { a: 1 }, null, undefined);
 Pass a `lodash` instance as a `lodashForMixin` option to make log functions available via `lodash`:
 ```ts
 const _ = require('lodash');
-import logdash from 'logdash';
 
-logdash({ lodashForMixin: _, });
+loadLogdash({ lodashForMixin: _, });
 
 _.logn('Logging directly via logdash');
 ```
@@ -78,7 +78,7 @@ _.logi(doubled.length); // Prints 3.
 
 All log functions are enabled by default but can be disabled via the `disableAllLogs` option:
 ```ts
-const { logi } = logdash({ disableAllLogs: true, }).logFuncs;
+const { logi } = loadLogdash({ disableAllLogs: true, }).logFuncs;
 _.logi("This won't be printed");
 ```
 
@@ -103,7 +103,7 @@ interface ILogType {
 
 New log types can be added and accessed via `log<initial-letter-of-log-type>`:
 ```ts
-const { loga } = logdash({
+const { loga } = loadLogdash({
     customizeLogTypes: (logTypes: ILogTypeMap) => ({
         ...logTypes,
         added: { color: chalk.cyan }, // `added` will become `loga`.
@@ -114,8 +114,8 @@ loga('This will print in cyan!');
 
 Existing log types can be customized easily via the `mapObjValues` helper:
 ```ts
-import logdash, { mapObjValues, ILogType } from 'logdash';
-const { logi } = logdash({
+import { loadLogdash, mapObjValues, ILogType } from '@surajs02/logdash';
+const { logi } = loadLogdash({
     customizeLogTypes: (logTypes: ILogTypeMap) => mapObjValues(
         logTypes, (t: ILogType) => ({...logTypes, color: chalk.magenta }),
     }),
