@@ -34,6 +34,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "chalk": "^4.0.0",
     "lodash": "^4.17.15"
   },
   "files": [
