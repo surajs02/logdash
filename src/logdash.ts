@@ -1,7 +1,7 @@
 const _ = require('lodash');
 import './util/utilLodashMixins';
 
-import utilLog, { IUtilLogOptions } from './util/utilLog';
+import { loadUtilLog, IUtilLogOptions } from './util/utilLog';
 import * as utilLogOther from './util/utilLog';
 
 export interface ILogType extends utilLogOther.ILogType {};
@@ -19,9 +19,9 @@ export const mapObj = _.mapObj;
 export const mapObjKeys = _.mapObjKeys;
 export const mapObjValues = _.mapObjValues;
 
-const reloadUtilLog = (options?: IUtilLogOptions) => utilLog({ ...options, });
+const reloadUtilLog = (options?: IUtilLogOptions) => loadUtilLog({ ...options, });
 
-export default (options?: ILogdashOptions) => {
+export const loadLogdash = (options?: ILogdashOptions) => {
     let { lodashForMixin, disableAllLogs = false, customizeLogTypes } = options || {}; 
 
     let logFuncs = reloadUtilLog({ 
@@ -49,3 +49,4 @@ export default (options?: ILogdashOptions) => {
 
 // TODO:
 // - switch between info/debug based on node/client?
+// - switch to destructured exports to avoid require('logdash').default

@@ -2,12 +2,12 @@ import { equal as assert } from 'assert';
 import chalk from 'chalk';
 const _ = require('lodash'); // TODO: Non-typed import as using lodash mixins, fix name not found?
 
-import logdash, 
-    { ILogdashOptions, ILogType, ILogTypeMap, ILogFunc, mapObjKeys, mapObjValues} from '../logdash';
+import { loadLogdash, ILogdashOptions, ILogType, ILogTypeMap, mapObjKeys, 
+    mapObjValues} from '../logdash';
 
 const args = ['string1', 1, true, [1, 2], { a: 1, b: 2, }, null, undefined, 'string2'];
 
-const reloadLogdash = (options?: ILogdashOptions) => logdash({ lodashForMixin: _, ...options });
+const reloadLogdash = (options?: ILogdashOptions) => loadLogdash({ lodashForMixin: _, ...options });
 
 _.each(
     reloadLogdash({

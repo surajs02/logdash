@@ -7,7 +7,8 @@
     "build": "tsc",
     "test": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src './**/test*.{ts,tsx}'",
     "testLogFuncs": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src './**/testLogFuncs.{ts,tsx}'",
-    "testOptions": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src './**/testOptions.{ts,tsx}'"
+    "testOptions": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src './**/testOptions.{ts,tsx}'",
+    "testModule": "npm run build && mocha src/tests/testModule.js"
   },
   "repository": {
     "type": "git",
