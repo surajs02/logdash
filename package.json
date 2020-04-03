@@ -1,6 +1,6 @@
 {
   "name": "@surajs02/logdash",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Simple and customizable log functions that can integrate with lodash.",
   "main": "./dist/logdash.js",
   "scripts": {
