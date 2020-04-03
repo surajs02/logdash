@@ -1,6 +1,8 @@
 const _ = require('lodash');
-import chalk from 'chalk';
+import * as chalkBlob from 'chalk';
 import { identityArgs } from './utilLoop';
+
+const chalk = chalkBlob.default;
 
 export interface ILogFunc {
     name: string;

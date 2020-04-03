@@ -10,7 +10,8 @@
     "testLogFuncs": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src './**/testLogFuncs.{ts,tsx}'",
     "testOptions": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src './**/testOptions.{ts,tsx}'",
     "testModule": "npm run build && mocha src/tests/testModule.js",
-    "deployPatch": "npm run testNoWatch && npm run build && npm version patch && npm publish"
+    "preDeploy": "npm run testNoWatch && npm run testModule && npm run build",
+    "deployPatch": "npm run preDeploy && npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
