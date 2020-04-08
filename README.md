@@ -1,8 +1,8 @@
 # logdash
 
 <div align="center">
-  <a href="https://raw.githubusercontent.com/surajs02/logdash/master/img/logdash-title.png">
-    <img src="https://raw.githubusercontent.com/surajs02/logdash/master/img/logdash-title.png" width="5%"/>
+  <a href="https://github.com/surajs02/logdash/blob/master/img/logdash-logo.png">
+    <img src="https://github.com/surajs02/logdash/blob/master/img/logdash-logo.png" width="50%"/>
   </a>
 </div>
 
@@ -22,7 +22,6 @@ Simple and customizable log functions that can integrate with `lodash`.
 
 ## Install
 
-`npm`:
 ```bash
 npm install @surajs02/logdash
 ```
