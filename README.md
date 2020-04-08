@@ -1,8 +1,8 @@
 # logdash
 
 <div align="center">
-  <a href="https://github.com/surajs02/logdash/blob/master/img/logdash-logo.png">
-    <img src="https://github.com/surajs02/logdash/blob/master/img/logdash-logo.png" width="50%"/>
+  <a href="https://user-images.githubusercontent.com/11654341/78821329-36a30300-79d1-11ea-8a12-ad7368f426a6.png">
+    <img src="https://user-images.githubusercontent.com/11654341/78821329-36a30300-79d1-11ea-8a12-ad7368f426a6.png" width="50%"/>
   </a>
 </div>
 
@@ -44,7 +44,7 @@ loge('There was an error');
 
 The above logs would be styled and displayed with a colored tag:
 
-![all-logs](https://raw.githubusercontent.com/surajs02/logdash/master/img/all-logs.png)
+![all-logs](https://user-images.githubusercontent.com/11654341/78821388-533f3b00-79d1-11ea-80f6-1b94a8768db1.png)
 
 All log functions support multiple arguments:
 ```ts
